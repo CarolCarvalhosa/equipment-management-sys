@@ -1,0 +1,30 @@
+{
+  "name": "equipment-management-sys",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/CarolCarvalhosa/equipment-management-sys.git",
+  "author": "carolcarvalhosa <ccscarvalhosa@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "tsx watch src/server.ts",
+    "knex": "node --no-warnings --loader tsx ./node_modules/.bin/knex",
+    "create-m": "yarn knex -- migrate:make",
+    "run-m": "yarn knex -- migrate:latest",
+    "undo-m": "yarn knex -- migrate:rollback"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.2.1",
+    "@fastify/middie": "^8.1.0",
+    "amqplib": "^0.10.3",
+    "fastify": "^4.15.0",
+    "knex": "^2.4.2",
+    "sqlite3": "^5.1.6",
+    "tsx": "^3.12.6"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^1.2.0",
+    "@types/amqplib": "^0.10.1",
+    "typescript": "^5.0.3"
+  }
+}
