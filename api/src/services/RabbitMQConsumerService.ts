@@ -1,11 +1,7 @@
 import amqp from 'amqplib';
 import { MessageService } from './MessageService';
 import { Logger } from '../utils/logger';
-
-const MQ_URL = 'amqp://localhost';
-const EXCHANGE = 'orders';
-const PREFETCH_COUNT = 1000;
-const QUEUE = 'order.process';
+import { EXCHANGE, MQ_URL, PREFETCH_COUNT, QUEUE } from '../constants/appConstants';
 
 /**
  * Handles RabbitMQ configuration and startup
@@ -33,7 +29,6 @@ export class RabbitMQConsumerService {
 
       // Ensure that the queue exists or create one if it doesn't
       await this.channel.assertQueue(QUEUE, { durable: false });
-      // await this.channel.bindQueue(QUEUE, EXCHANGE, '')
 
       // Only process <PREFETCH_COUNT> orders at a time
       this.channel.prefetch(PREFETCH_COUNT);
@@ -50,15 +45,6 @@ export class RabbitMQConsumerService {
           Logger.info(` [x] Received ${message.content.toString()}`);
         }
       });
-
-      // this.channel.consume(QUEUE, (order) => {
-      //   console.log(order)
-      //   if (order) {
-      //     // const message = JSON.parse(order?.content.toString())
-      //     // this.messageService.getMessage(message)
-      //   }
-      //   // processOrder(order, this.channel)
-      // })
     } catch (ex) {
       Logger.error(`AMQP - ${ex}`);
       process.exit();

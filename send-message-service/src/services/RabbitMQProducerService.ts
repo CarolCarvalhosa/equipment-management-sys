@@ -1,10 +1,6 @@
 import amqp from 'amqplib';
+import { EXCHANGE, MQ_URL, QUEUE } from '../constants/appConstants';
 import { Logger } from '../utils/logger';
-
-const MQ_URL = 'amqp://localhost';
-const EXCHANGE = 'orders';
-const QUEUE = 'order.process';
-const PREFETCH_COUNT = 2;
 
 /**
  * Handles RabbitMQ configuration and startup

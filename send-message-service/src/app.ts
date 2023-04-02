@@ -1,4 +1,4 @@
-import fastify, { FastifyInstance } from 'fastify';
+import fastify from 'fastify';
 import cors from '@fastify/cors';
 import { senderRoutes } from './routes/sender.routes';
 import { RabbitMQProducerService } from './services/RabbitMQProducerService';

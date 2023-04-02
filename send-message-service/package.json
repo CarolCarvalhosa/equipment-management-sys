@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.2.1",
-    "@fastify/middie": "^8.1.0",
     "amqplib": "^0.10.3",
     "fastify": "^4.15.0",
     "tsx": "^3.12.6"
