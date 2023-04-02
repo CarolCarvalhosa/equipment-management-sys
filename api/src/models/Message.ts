@@ -1,6 +1,6 @@
 export type Message = {
-  tag: string
-  IMEI: string
-  value: string
-  timestamp: Date
+  IMEI: string; // identifier
+  tag: 'poweron' | 'poweroff' | 'timebased';
+  value: string;
+  timestamp: Date;
 }

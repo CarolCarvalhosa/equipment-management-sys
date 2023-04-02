@@ -1,20 +1,20 @@
-import fastify from 'fastify'
-import cors from '@fastify/cors'
-import { receiverRoutes } from './routes/receiver.routes'
-import { RabbitMQConsumerService } from './services/RabbitMQConsumerService'
+import fastify from 'fastify';
+import cors from '@fastify/cors';
+import { receiverRoutes } from './routes/receiver.routes';
+import { RabbitMQConsumerService } from './services/RabbitMQConsumerService';
 // import middlewares from '@fastify/middie'
 
-const mqService = new RabbitMQConsumerService()
+const mqService = new RabbitMQConsumerService();
 
-mqService.connect()
+mqService.connect();
 
-const app = fastify()
+const app = fastify();
 
 app.register(cors, {
   origin: ['*'],
-})
+});
 
-app.register(receiverRoutes)
+app.register(receiverRoutes);
 // app.register(middlewares)
 
-export { app }
+export { app };

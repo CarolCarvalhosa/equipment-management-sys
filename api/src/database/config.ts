@@ -1,4 +1,4 @@
-import setupKnex, { Knex } from 'knex'
+import setupKnex, { Knex } from 'knex';
 
 export const config: Knex.Config = {
   client: 'sqlite',
@@ -10,6 +10,6 @@ export const config: Knex.Config = {
     extension: 'ts',
     directory: 'src/database/migrations',
   },
-}
+};
 
-export const knex = setupKnex(config)
+export const knex = setupKnex(config);
