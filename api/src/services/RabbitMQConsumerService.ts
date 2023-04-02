@@ -37,12 +37,10 @@ export class RabbitMQConsumerService {
       );
 
       this.channel.consume(QUEUE, (message) => {
-        console.log(message);
         if (message) {
-          this.messageService.processMessage(
-            JSON.parse(message.content.toString()),
-          );
-          Logger.info(` [x] Received ${message.content.toString()}`);
+          const messageJSON = JSON.parse(message.content.toString());
+          this.messageService.processMessage(messageJSON);
+          Logger.info('[x] Received', messageJSON);
         }
       });
     } catch (ex) {

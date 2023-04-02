@@ -1,6 +1,9 @@
 export class Logger {
-  static info = (message: string) => {
-    console.info(message);
+  static info = (message: string, json?: object) => {
+    if (json)
+      console.info(message, json);
+    else
+      console.info(message);
   };
 
   static warn = (message: string) => {

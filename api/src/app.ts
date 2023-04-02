@@ -1,6 +1,6 @@
 import fastify from 'fastify';
 import cors from '@fastify/cors';
-import { receiverRoutes } from './routes/receiver.routes';
+import { messagesRoutes } from './routes/messages.routes';
 import { RabbitMQConsumerService } from './services/RabbitMQConsumerService';
 
 const mqService = new RabbitMQConsumerService();
@@ -13,6 +13,6 @@ app.register(cors, {
   origin: ['*'],
 });
 
-app.register(receiverRoutes);
+app.register(messagesRoutes, { prefix: '/messages' });
 
 export { app };
