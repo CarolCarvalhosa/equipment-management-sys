@@ -22,7 +22,7 @@ export const Equipments: React.FC = () => {
   });
 
   return (
-    <BaseLayout>
+    <BaseLayout linkName='Graph Screen' linkPath='/graph' label='Equipments'>
       <CardsWrapper>
         {allEquipments?.map(equipment => (
           <Card>

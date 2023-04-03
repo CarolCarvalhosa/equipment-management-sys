@@ -12,4 +12,10 @@ export const CardsWrapper = styled(Box)`
 export const Card = styled(MUICard)`
   height: 30vh;
   width: 20vw;
+  border-radius: 20px;
+  transition: scale 0.5s;
+
+  &:hover {
+    scale: 1.05;
+  }
 `;
