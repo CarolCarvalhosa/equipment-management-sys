@@ -19,7 +19,7 @@ export const Equipments: React.FC = () => {
 
   useEffect(() => {
     fetchEquipments();
-  });
+  }, []);
 
   return (
     <BaseLayout linkName='Graph Screen' linkPath='/graph' label='Equipments'>

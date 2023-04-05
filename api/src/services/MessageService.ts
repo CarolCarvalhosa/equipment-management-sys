@@ -8,10 +8,11 @@ export class MessageService {
     this.messageRepository = new MessageRepository();
   }
 
-  public async getAllMessages() {
-    return await this.messageRepository.getAllMessages();
-  }
-
+  /**
+   * Process and save message on database.
+   * @param message input message
+   * @returns ok, nok
+   */
   public async processMessage(message: Message) {
     return await this.messageRepository.saveMessage(message);
   }

@@ -5,7 +5,7 @@ export const useEquipments = () => {
   const getAllEquipmentMessages = async (): Promise<Message[] | undefined> => {
     try {
       const equipmentMessageDataSource = new EquipmentMessageDataSource();
-      const response = await equipmentMessageDataSource.get();
+      const response = await equipmentMessageDataSource.get('all');
       return response;
     } catch (error: unknown) {
       console.error(error);

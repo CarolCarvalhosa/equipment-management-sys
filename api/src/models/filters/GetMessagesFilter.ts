@@ -1,0 +1,1 @@
+export type GetMessagesFilter = 'active' | 'idle' | 'all';

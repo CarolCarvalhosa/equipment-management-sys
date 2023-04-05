@@ -5,6 +5,6 @@ app.listen({ port: 5001 }).then(() => {
 
   if (serverInfo) {
     const port = serverInfo.port;
-    console.log(`Example app listening at http://localhost:${port}!`);
+    console.log(`Listening at http://localhost:${port}!`);
   }
 });

@@ -1,2 +1,2 @@
 // API Routes
-export const GET_ALL_MESSAGES = 'messages/';
+export const GET_EQUIPMENTS = 'equipment';
