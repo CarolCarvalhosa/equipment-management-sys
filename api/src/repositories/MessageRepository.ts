@@ -42,35 +42,22 @@ export class MessageRepository {
   }
 
   /**
-   * Get latest poweron messages from equipments.
-   * @description Latest equipment message with poweron tag.
+   * Get count active and inactive latest messages from equipments.
+   * @description Count of poweron and poweroff latest messages.
    * 
-   * SQL Generated: select id, IMEI, tag, value, max(timestamp) as timestamp from messages where tag = 'poweron' order by timestamp;
-   * @returns poweron messages
+   * SQL Generated: select tag, count(tag) as count from (select IMEI, tag, max(timestamp) as timestamp from messages where tag != 'timebased' group by IMEI) as subQuery group by tag;
+   * @returns poweron and poweroff messages count
    */
-  public async getLatestMessagesWithPowerOnTagOrderedByDate() {
-    return await knex('messages')
-      .select('id', 'IMEI', 'tag', 'value')
-      .select(knex.raw('max(timestamp) as timestamp'))
-      .where('tag', 'poweron')
-      .groupBy('IMEI')
-      .orderBy('timestamp');
-  }
+  public async getLatestMessagesWithPowerOnAndPowerOffTag() {
+    const subQuery = knex('messages')
+      .select('IMEI', 'tag', knex.raw('max(timestamp) as timestamp'))
+      .whereNot('tag', 'timebased')
+      .groupBy('IMEI', 'tag')
+      .as('subQuery');
 
-  /**
-   * Get latest poweroff messages from equipments.
-   * @description Latest equipment message with poweroff tag.
-   * 
-   * SQL Generated: select id, IMEI, tag, value, max(timestamp) as timestamp from messages where tag = 'poweroff' order by timestamp;
-   * @returns poweroff messages
-   */
-  public async getLatestMessagesWithPowerOffTagOrderedByDate() {
-    return await knex('messages')
-      .select('id', 'IMEI', 'tag', 'value')
-      .select(knex.raw('max(timestamp) as timestamp'))
-      .where('tag', 'poweroff')
-      .groupBy('IMEI')
-      .orderBy('timestamp');
+    return await knex(subQuery)
+      .select('tag', knex.raw('count(tag) as count'))
+      .groupBy('tag');
   }
 
   /**

@@ -1,9 +1,11 @@
+import moment from 'moment';
+
 export const randomDate = (start, end) => {
-  const diff = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+  const diff = moment(end).diff(moment(start), 'days');
   const randomDays = Math.floor(Math.random() * diff);
   const randomHours = Math.floor(Math.random() * 24);
   const randomMinutes = Math.floor(Math.random() * 60);
   const randomSeconds = Math.floor(Math.random() * 60);
-  const date = new Date(start.getTime() + randomDays * (1000 * 60 * 60 * 24) + randomHours * (1000 * 60 * 60) + randomMinutes * (1000 * 60) + randomSeconds * 1000);
+  const date = moment(start).add(randomDays, 'days').add(randomHours, 'hours').add(randomMinutes, 'minutes').add(randomSeconds, 'seconds').toDate();
   return date;
 };

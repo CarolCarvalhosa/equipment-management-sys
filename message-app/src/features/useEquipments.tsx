@@ -1,4 +1,5 @@
 import { EquipmentMessageDataSource } from '../datasources/EquipmentMessageDataSource';
+import { EquipmentTagCount } from '../models/EquipmentTagCount';
 import { MessagesFilter } from '../models/filters/MessagesFilter';
 import { Message } from '../models/Message';
 
@@ -13,20 +14,10 @@ export const useEquipments = () => {
     }
   };
 
-  const getAllPoweredOnEquipments = async (): Promise<Message[] | undefined> => {
+  const getPoweredOnAndPowerOffEquipmentsCount = async (): Promise<EquipmentTagCount[] | undefined> => {
     try {
       const equipmentMessageDataSource = new EquipmentMessageDataSource();
-      const response = await equipmentMessageDataSource.getPoweredOn();
-      return response;
-    } catch (error: unknown) {
-      console.error(error);
-    }
-  };
-
-  const getAllPoweredOffEquipments = async (): Promise<Message[] | undefined> => {
-    try {
-      const equipmentMessageDataSource = new EquipmentMessageDataSource();
-      const response = await equipmentMessageDataSource.getPoweredOff();
+      const response = await equipmentMessageDataSource.getPoweredOnAndPowerOff();
       return response;
     } catch (error: unknown) {
       console.error(error);
@@ -35,7 +26,6 @@ export const useEquipments = () => {
     
   return {
     getAllEquipments,
-    getAllPoweredOnEquipments,
-    getAllPoweredOffEquipments
+    getPoweredOnAndPowerOffEquipmentsCount,
   };
 };

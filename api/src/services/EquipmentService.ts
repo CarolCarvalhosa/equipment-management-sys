@@ -22,11 +22,7 @@ export class EquipmentService {
       return await this.messageRepository.getAllMessages();
   }
 
-  public async getPoweredOnEquipments() {
-    return await this.messageRepository.getLatestMessagesWithPowerOnTagOrderedByDate();
-  }
-
-  public async getPoweredOffEquipments() {
-    return await this.messageRepository.getLatestMessagesWithPowerOffTagOrderedByDate();
+  public async getPoweredOnAndPowerOffEquipmentsCount() {
+    return await this.messageRepository.getLatestMessagesWithPowerOnAndPowerOffTag();
   }
 }

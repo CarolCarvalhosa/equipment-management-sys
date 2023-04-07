@@ -16,18 +16,9 @@ export const equipmentRoutes = async (app: FastifyInstance) => {
     }
   });
 
-  app.get('/poweron', async function (req, res) {
+  app.get('/poweron-poweroff-count', async function (req, res) {
     try {
-      const response = await equipmentService.getPoweredOnEquipments();
-      res.send(response);
-    } catch (error) {
-      return res.status(400).send({ error: error.message });
-    }
-  });
-
-  app.get('/poweroff', async function (req, res) {
-    try {
-      const response = await equipmentService.getPoweredOffEquipments();
+      const response = await equipmentService.getPoweredOnAndPowerOffEquipmentsCount();
       res.send(response);
     } catch (error) {
       return res.status(400).send({ error: error.message });
