@@ -1,0 +1,1 @@
+export type MessagesFilter = 'active' | 'not_reporting' | 'all';

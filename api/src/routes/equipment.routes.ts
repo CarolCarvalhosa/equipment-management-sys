@@ -9,7 +9,25 @@ export const equipmentRoutes = async (app: FastifyInstance) => {
   app.get('/', async function (req, res) {
     try {
       const params = req.query as GetMessagesQueryParams;
-      const response = await equipmentService.getEquipmentMessages(params.filter as GetMessagesFilter);
+      const response = await equipmentService.getEquipments(params.filter as GetMessagesFilter);
+      res.send(response);
+    } catch (error) {
+      return res.status(400).send({ error: error.message });
+    }
+  });
+
+  app.get('/poweron', async function (req, res) {
+    try {
+      const response = await equipmentService.getPoweredOnEquipments();
+      res.send(response);
+    } catch (error) {
+      return res.status(400).send({ error: error.message });
+    }
+  });
+
+  app.get('/poweroff', async function (req, res) {
+    try {
+      const response = await equipmentService.getPoweredOffEquipments();
       res.send(response);
     } catch (error) {
       return res.status(400).send({ error: error.message });

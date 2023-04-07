@@ -13,13 +13,20 @@ export class EquipmentService {
    * @param filter all, active or idle
    * @returns messages filtered
    */
-  public async getEquipmentMessages(filter: GetMessagesFilter) {
-    console.log(filter);
+  public async getEquipments(filter: GetMessagesFilter) {
     if (filter === 'active')
       return await this.messageRepository.getLatestMessagesFromLast30Minutes();
-    else if (filter == 'idle')
+    else if (filter == 'not_reporting')
       return await this.messageRepository.getLatestMessagesTriggeredLongerThan30MinutesAgoWithMinutesDiff();
     else
       return await this.messageRepository.getAllMessages();
+  }
+
+  public async getPoweredOnEquipments() {
+    return await this.messageRepository.getLatestMessagesWithPowerOnTagOrderedByDate();
+  }
+
+  public async getPoweredOffEquipments() {
+    return await this.messageRepository.getLatestMessagesWithPowerOffTagOrderedByDate();
   }
 }

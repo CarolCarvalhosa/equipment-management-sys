@@ -1,1 +1,1 @@
-export type GetMessagesFilter = 'active' | 'idle' | 'all';
+export type GetMessagesFilter = 'active' | 'not_reporting' | 'all';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { AppBar, Box } from '@mui/material';
 
-const headerSize = 15;
+const headerSize = 10;
 
 export const Root = styled(Box)`
   background-color: #111111;
@@ -13,7 +13,7 @@ export const Header = styled(AppBar)`
   justify-content: space-between;
   align-items: center;
   height: ${headerSize}vh;
-  padding: 10px 40px;
+  padding: 0px 40px;
   background-color: #fff;
 
   & h5 {
