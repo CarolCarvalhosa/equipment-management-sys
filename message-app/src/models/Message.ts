@@ -1,8 +1,9 @@
+export type MessageTag = 'poweron' | 'poweroff' | 'timebased';
+
 export type Message = {
     id: string;
     IMEI: string;
-    tag: 'poweron' | 'poweroff' | 'timebased';
+    tag: MessageTag;
     value: string;
     timestamp: Date;
-  }
-  
+}

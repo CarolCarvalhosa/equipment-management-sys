@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BaseLayout } from '../../layout/BaseLayout';
-import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, CardContent, Typography } from '@mui/material';
+import { SelectChangeEvent, Typography } from '@mui/material';
 import { useEquipments } from '../../features/useEquipments';
 import { Message } from '../../models/Message';
-import { CardsWrapper, Card } from './styles';
+import { CardsWrapper } from './styles';
 import { MessagesFilter } from '../../models/filters/MessagesFilter';
+import { EquipmentCard } from '../../components/EquipmentCard';
+import { EquipmentFilterSelect } from '../../components/EquipmentFilterSelect';
 
 export const Equipments: React.FC = () => {
   const [equipments, setEquipments] = React.useState<Message[]>([]);
@@ -29,38 +31,14 @@ export const Equipments: React.FC = () => {
   }, []);
 
   return (
-    <BaseLayout linkName='Graph Screen' linkPath='/graph' label='Equipments'>
-      <FormControl>
-        <InputLabel>Equipments</InputLabel>
-        <Select
-          value={messagesFilterSelect}
-          label="Equipments"
-          onChange={handleChange}
-        >
-          <MenuItem value={'all'}>All</MenuItem>
-          <MenuItem value={'active'}>Active</MenuItem>
-          <MenuItem value={'not_reporting'}>Not Reporting</MenuItem>
-        </Select>
-      </FormControl>
+    <BaseLayout linkName='Graph Screen' linkPath='/graph' label='Equipments' barComponents={<EquipmentFilterSelect handleChange={handleChange} messagesFilterSelect={messagesFilterSelect} />}>
       <CardsWrapper>
-        {equipments?.map(equipment => (
-          <Card>
-            <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                IMEI: {equipment.IMEI}
-              </Typography>
-              <Typography variant="h5" component="div">
-                {equipment.tag}
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                {equipment.value}
-              </Typography>
-              <Typography variant="body2">
-                {equipment.timestamp.toString()}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
+        {equipments.length > 0 ? 
+          equipments?.map(equipment => (
+            <EquipmentCard equipment={equipment} />
+          )) : 
+          <Typography>No data to display</Typography>
+        }
       </CardsWrapper>
     </BaseLayout>
   );

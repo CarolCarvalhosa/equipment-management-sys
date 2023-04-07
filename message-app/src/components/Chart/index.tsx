@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import { useEquipments } from '../../features/useEquipments';
+import { CustomLegend } from './CustomLegend';
+import { CustomTooltip } from './CustomTooltip';
 
 type GraphData = {
-  poweron: number;
-  poweroff: number;
+  name: 'poweron' | 'poweroff';
+  value: number;
 }
 
 export const Chart: React.FC = () => {
@@ -20,8 +22,12 @@ export const Chart: React.FC = () => {
       setGraphData(
         [
           {
-            poweron: equipmentsCount.find(equipmentCount => equipmentCount.tag === 'poweron')?.count ?? 0,
-            poweroff: equipmentsCount.find(equipmentCount => equipmentCount.tag === 'poweroff')?.count ?? 0
+            name: 'poweron',
+            value: equipmentsCount.find(equipmentCount => equipmentCount.tag === 'poweron')?.count ?? 0
+          },
+          {
+            name: 'poweroff',
+            value: equipmentsCount.find(equipmentCount => equipmentCount.tag === 'poweroff')?.count ?? 0
           }
         ]);
     }
@@ -32,10 +38,8 @@ export const Chart: React.FC = () => {
   }, []);
   
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="20%" height="50%">
       <BarChart
-        width={500}
-        height={300}
         data={graphData}
         margin={{
           top: 5,
@@ -46,10 +50,15 @@ export const Chart: React.FC = () => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="poweron" fill="#66BB6A" />
-        <Bar dataKey="poweroff" fill="#F44336" />
+        <Tooltip cursor={false} content={<CustomTooltip />} />
+        <Legend content={<CustomLegend />} />
+        <Bar dataKey="value">
+          {graphData.map((entry, index) => {
+            console.log(entry, index);
+            return (
+              <Cell cursor="pointer" fill={entry.name === 'poweron' ? '#238636' : '#da3633'} key={`cell-${index}`} />
+            );})}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
