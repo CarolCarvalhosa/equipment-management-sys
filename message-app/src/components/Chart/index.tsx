@@ -38,7 +38,7 @@ export const Chart: React.FC = () => {
   }, []);
   
   return (
-    <ResponsiveContainer width="20%" height="50%">
+    <ResponsiveContainer width="40%" height="70%">
       <BarChart
         data={graphData}
         margin={{

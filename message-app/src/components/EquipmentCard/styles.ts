@@ -25,8 +25,7 @@ export const Card = styled(MUICard)<CardStyles>`
   border-radius: 20px;
   transition: scale 0.5s;
   background: #222222;
-  padding: 8px;
-  ${props => props.hasError && 'background-image: linear-gradient(45deg, transparent 20%, #da3633 20%, #da3633 25%, transparent 25%, transparent 40%, #da3633 40%, #da3633 45%, transparent 45%, transparent 60%, #da3633 60%, #da3633 65%, transparent 65%, transparent 80%, #da3633 80%, #da3633 85%, transparent 85%);'}
+  ${props => props.hasError && 'background-image: linear-gradient(45deg, transparent 20%, #333333 20%, #333333 25%, transparent 25%, transparent 40%, #333333 40%, #333333 45%, transparent 45%, transparent 60%, #333333 60%, #333333 65%, transparent 65%, transparent 80%, #333333 80%, #333333 85%, transparent 85%);'}
 
   &:hover {
     scale: 1.05;
@@ -38,9 +37,11 @@ export const Card = styled(MUICard)<CardStyles>`
 `;
 
 export const CardContent = styled(MUICardContent)`
+  height: 20vh;
   display: flex;
+  padding: 20px;
+  justify-content: space-between;
   flex-direction: column;
-  gap: 10px;
 `;
 
 export const EquipmentStatusCircle = styled(Box)<EquipmentStatusCircleStyles>`
@@ -58,5 +59,19 @@ export const HeaderBox = styled(Box)`
 export const BodyBox = styled(Box)`
   display: flex;
   flex-direction: column;
+`;
 
+export const IconsContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+
+  & .warn-icon {
+    font-size: 23px;
+    fill: #da7033;
+  }
+
+  & .critical-icon {
+    font-size: 23px;
+    fill: #da3633;
+  }
 `;

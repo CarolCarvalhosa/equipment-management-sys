@@ -1,6 +1,8 @@
 import { Tooltip, Typography } from '@mui/material';
 import { Message } from '../../models/Message';
-import { BodyBox, Card, CardContent, EquipmentStatusCircle, HeaderBox } from './styles';
+import { BodyBox, Card, CardContent, EquipmentStatusCircle, HeaderBox, IconsContainer } from './styles';
+import moment from 'moment';
+import { Warning, Dangerous } from '@mui/icons-material';
 
 type EquipmentCardProps = {
   equipment: Message;
@@ -33,10 +35,23 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment }) => {
       <Tooltip title={getTooltipMessage()}>
         <CardContent>
           <HeaderBox>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            <Typography sx={{ fontSize: 14 }} gutterBottom>
           IMEI: {equipment.IMEI}
             </Typography>
-            {!hasError && <EquipmentStatusCircle tag={equipment.tag} />}
+            <IconsContainer>
+              {equipment.timestamp_minutes_diff ? 
+                <Tooltip title={`Not reporting since ${Math.round(equipment.timestamp_minutes_diff / 60)} hours and ${equipment.timestamp_minutes_diff % 60} minutes ago`}>
+                  <span>
+                    {equipment.timestamp_minutes_diff / 60 > 24 ? 
+                      <Dangerous className='critical-icon' />
+                      : 
+                      <Warning className='warn-icon' />
+                    }
+                  </span>
+                </Tooltip>
+                :
+                !hasError && <EquipmentStatusCircle tag={equipment.tag} />}
+            </IconsContainer>
           </HeaderBox>
 
           <BodyBox>
@@ -46,7 +61,7 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment }) => {
 
             {hasError && 
             <>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1.5 }}>
                 {equipment.value.split(';')[0]}
               </Typography>
               <Typography sx={{ mb: 1.5, fontSize: '13px' }} color="text.secondary">
@@ -57,7 +72,7 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment }) => {
           </BodyBox>
 
           <Typography variant="body2">
-            {equipment.timestamp.toString()}
+            {moment(equipment.timestamp).format('L LTS')}
           </Typography>
         </CardContent>
       </Tooltip>

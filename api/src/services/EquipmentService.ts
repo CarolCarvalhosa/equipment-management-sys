@@ -22,6 +22,10 @@ export class EquipmentService {
       return await this.messageRepository.getAllMessages();
   }
 
+  /**
+   * Get equipment poweron and poweroff.
+   * @returns total count of messages from equipments with poweron and poweroff tags.
+   */
   public async getPoweredOnAndPowerOffEquipmentsCount() {
     return await this.messageRepository.getLatestMessagesWithPowerOnAndPowerOffTag();
   }

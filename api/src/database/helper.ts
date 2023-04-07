@@ -1,7 +1,6 @@
 import moment from 'moment';
 import crypto from 'node:crypto';
 import { randomDate } from '../utils';
-import { knex } from './config';
 
 export const getTagRandomOption = () => {
   const tagOptions = ['poweron', 'poweroff', 'timebased'];
@@ -9,8 +8,7 @@ export const getTagRandomOption = () => {
 };
 
 export const getTimestampRandomOption = () => {
-  //console.log(randomDate(new Date('2020-01-01'), new Date('2023-04-04')).toISOString());
-  const timestampOptions = [knex.fn.now(), moment(randomDate(moment('2020-01-01'), moment('2023-04-04'))).format('YYYY-MM-DD h:mm:ss')];
+  const timestampOptions = [moment().format(), moment(randomDate(moment('2020-01-01'), moment('2023-04-04'))).format()];
   return timestampOptions[crypto.randomInt(2)];
 };
 

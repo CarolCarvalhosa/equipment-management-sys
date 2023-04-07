@@ -1,5 +1,4 @@
 import { Button, Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Body, Header, Root } from './styles';

@@ -6,4 +6,5 @@ export type Message = {
     tag: MessageTag;
     value: string;
     timestamp: Date;
+    timestamp_minutes_diff?: number;
 }
