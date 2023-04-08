@@ -9,9 +9,9 @@ export class EquipmentService {
   }
 
   /**
-   * Get equipment messages.
-   * @param filter all, active or idle
-   * @returns messages filtered
+   * Get equipments from messages.
+   * @param filter all, active or not_reporting.
+   * @returns messages filtered.
    */
   public async getEquipments(filter: GetMessagesFilter) {
     if (filter === 'active')
@@ -23,7 +23,7 @@ export class EquipmentService {
   }
 
   /**
-   * Get equipment poweron and poweroff.
+   * Get equipment with status poweron and poweroff.
    * @returns total count of messages from equipments with poweron and poweroff tags.
    */
   public async getPoweredOnAndPowerOffEquipmentsCount() {

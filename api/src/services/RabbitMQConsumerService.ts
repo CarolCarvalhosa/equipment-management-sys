@@ -32,6 +32,7 @@ export class RabbitMQConsumerService {
 
       // Only process <PREFETCH_COUNT> orders at a time
       this.channel.prefetch(PREFETCH_COUNT);
+      
       Logger.info(
         `AMQP - connection established at ${MQ_URL} with prefetch count ${PREFETCH_COUNT} and delivery time ${new Date()}ms`,
       );

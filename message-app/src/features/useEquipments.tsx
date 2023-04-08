@@ -3,6 +3,10 @@ import { EquipmentTagCount } from '../models/EquipmentTagCount';
 import { MessagesFilter } from '../models/filters/MessagesFilter';
 import { Message } from '../models/Message';
 
+/**
+ * Hook to handle equipments requests to API.
+ * @returns hook functions.
+ */
 export const useEquipments = () => {
   const getAllEquipments = async (filter: MessagesFilter): Promise<Message[] | undefined> => {
     try {

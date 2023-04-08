@@ -1,4 +1,4 @@
-import { Message } from '../models/Message';
+import { RabbitMQMessage } from '../models/Message';
 import { MessageRepository } from '../repositories/MessageRepository';
 
 export class MessageService {
@@ -10,10 +10,10 @@ export class MessageService {
 
   /**
    * Process and save message on database.
-   * @param message input message
-   * @returns ok, nok
+   * @param message input message.
+   * @returns true or false.
    */
-  public async processMessage(message: Message) {
+  public async processMessage(message: RabbitMQMessage) {
     return await this.messageRepository.saveMessage(message);
   }
 }

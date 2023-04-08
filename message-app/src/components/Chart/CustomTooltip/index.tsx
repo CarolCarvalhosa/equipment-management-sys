@@ -1,5 +1,6 @@
 import { TooltipContainer, TooltipText } from './styles';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const CustomTooltip: React.FC = (content: any) => {
   if (content.active) {
     return (

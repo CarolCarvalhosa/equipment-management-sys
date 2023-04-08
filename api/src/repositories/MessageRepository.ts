@@ -1,25 +1,25 @@
 import { knex } from '../database/config';
-import { Message } from '../models/Message';
+import { Message, MessageTagCount, MessageWithDiff, RabbitMQMessage } from '../models/Message';
 import crypto from 'node:crypto';
 
 export class MessageRepository {
   /**
    * Get all messages from database.
-   * @returns all messages
+   * @returns all messages.
    */
-  public async getAllMessages() {
+  public async getAllMessages(): Promise<Message[]> {
     return await knex('messages')
       .select('*');
   }
 
   /**
    * Get latest messages from active equipments.
-   * @description Latest equipment message from the last 30 minutes.
+   * @description Latest message from each equipment from the last 30 minutes.
    * 
    * SQL Generated: select * from messages group by IMEI having max(timestamp) >= datetime('now', '-30 minutes', 'localtime');
-   * @returns latest active equipments messages
+   * @returns active equipments.
    */
-  public async getLatestMessagesFromLast30Minutes() {
+  public async getLatestMessagesFromLast30Minutes(): Promise<Message[]> {
     return await knex('messages')
       .select('*')
       .groupBy('IMEI')
@@ -27,13 +27,13 @@ export class MessageRepository {
   }
 
   /**
-   * Get latest message from idle equipments.
-   * @description Latest equipment message triggered more than 30 minutes ago with timestamp diff in minutes.
+   * Get latest messages from idle equipments.
+   * @description Latest message from each equipment triggered more than 30 minutes ago with timestamp diff in minutes.
    * 
    * SQL Generated: select *, round((julianday(datetime('now', 'localtime')) - julianday(timestamp)) * (24 * 60)) as timestamp_minutes_diff from messages group by IMEI having max(timestamp) < datetime('now', '-30 minutes', 'localtime');
-   * @returns latest idle equipments messages
+   * @returns idle equipments.
    */
-  public async getLatestMessagesTriggeredLongerThan30MinutesAgoWithMinutesDiff() {
+  public async getLatestMessagesTriggeredLongerThan30MinutesAgoWithMinutesDiff(): Promise<MessageWithDiff[]> {
     return await knex('messages')
       .select('*')
       .select(knex.raw('round((julianday(datetime(\'now\', \'localtime\')) - julianday(timestamp)) * (24 * 60)) as timestamp_minutes_diff'))
@@ -42,13 +42,13 @@ export class MessageRepository {
   }
 
   /**
-   * Get count active and inactive latest messages from equipments.
+   * Get count of poweron and poweroff latest messages from equipments.
    * @description Count of poweron and poweroff latest messages.
    * 
    * SQL Generated: select tag, count(tag) as count from (select IMEI, tag, max(timestamp) as timestamp from messages where tag != 'timebased' group by IMEI) as subQuery group by tag;
-   * @returns poweron and poweroff messages count
+   * @returns poweron and poweroff messages count.
    */
-  public async getLatestMessagesWithPowerOnAndPowerOffTag() {
+  public async getLatestMessagesWithPowerOnAndPowerOffTag(): Promise<MessageTagCount[]> {
     const subQuery = knex('messages')
       .select('IMEI', 'tag', knex.raw('max(timestamp) as timestamp'))
       .whereNot('tag', 'timebased')
@@ -62,14 +62,15 @@ export class MessageRepository {
 
   /**
    * Save message on database.
-   * @param message input message
-   * @returns ok, nok
+   * @param message input message.
+   * @returns true, false.
    */
-  public async saveMessage(message: Message) {
+  public async saveMessage(message: RabbitMQMessage): Promise<boolean> {
     const newMessage = {
       id: crypto.randomUUID(),
       ...message
     };
+
     return await knex('messages').insert(newMessage);
   }
 }
