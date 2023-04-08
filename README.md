@@ -33,7 +33,7 @@ yarn start
 
 Open [http://localhost:5173](http://localhost:5173) to view the front-end in the browser.
 
-## Tests
+## Sending messages to API
 
 Start the send-message-service:
 
