@@ -71,7 +71,7 @@ Use postman to POST more messages. Sample request:
 
 Screen to display all active equipment (equipment that reported data in the last 30 minutes);
 
-<img src="screenshots/active-equipments.png" /> 
+<img src="screenshots/active-equipments.png" />
 
 </br>
 
@@ -79,7 +79,7 @@ Screen to display all equipment that is not reporting and with a status indicati
  - 24h without reporting (Warning) - Orange triangle;
  - more than 24h without reporting (Critical) - Red stop sign with an x;
 
-<img src="screenshots/not-reporting-equipments.png" /> 
+<img src="screenshots/not-reporting-equipments.png" />
 
 </br>
 
